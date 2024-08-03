@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="/static/css/signin.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <form id="form-id">
+      <h1>Login</h1>
+      <div class="input-box">
+        <input type="text" placeholder="Username" name="username" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" name="passwd" required>
+        <i class='bx bxs-lock-alt' ></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Remember Me</label>
+        <a href="/signup">Forgot Password</a>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div class="register-link">
+        <p>Dont have an account? <a href="/signup">Register</a></p>
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("form-id").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const formDataObject = Object.fromEntries(formData);
+  
+      console.log("Form submitted:", formDataObject);
+      try {
+        const res = await fetch('/sign-in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formDataObject)
+        });
+        const response = await res.json();
+        console.log(response);
+        if (response.status === "error") {
+          alert(response.message);
+        } else if (response.status === "success") {
+          window.location.href = "/dashboard";
+        } else {
+          alert("An error occurred while submitting the form.");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>

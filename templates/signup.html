@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/static/css/signup.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <form id="form-id">
+      <h1>SIGN UP</h1>
+
+      <div class="input-box">
+        <div class="input-field">
+          <input type="text" name="full_name" placeholder="Full Name" required>
+          <i class='bx bxs-user-circle'></i>
+        </div>
+        <div class="input-field">
+          <input type="email" name="email" placeholder="E-mail" required>
+          <i class='bx bxs-envelope'></i>
+        </div>
+      </div>
+
+      <div class="input-box">
+        <div class="input-field">
+          <input type="number" name="marks" placeholder="Enter Marks" required>
+          <i class='bx bxs-user-circle'></i>
+        </div>
+        <div class="input-field">
+          <input type="number" name="att" placeholder="Enter Attendance" required>
+          <i class='bx bxs-envelope'></i>
+        </div>
+      </div>
+      
+
+      <div class="input-box">
+        <div class="input-field">
+          <input type="text" name="age" placeholder="Your age" required>
+        </div>
+        <div class="input-field">
+          <input type="text" name="standard" placeholder="Standard" required>
+          <i class='bx bxs-briefcase'></i>
+        </div>
+      </div>
+      <div class="input-box">
+        <div class="input-field">
+          <input type="text" name="country" placeholder="Enter Your Country" required>
+        </div>
+        <div class="input-field">
+          <select name="state" style="height: 40px; width: 100px; margin-left: 5px; border-radius: 10px;text-align: center;" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-box">
+        <div class="input-field">
+          <input type="text" name="phone_number" placeholder="Enter Your Number" required>
+          <i class='bx bx-phone'></i>
+        </div>
+        <div class="input-field">
+          <select name="language" style="height: 40px; width: 130px; margin-left: 5px; border-radius: 10px;text-align: center;" required>
+            <option value="" disabled selected>Select Language</option>
+            <option value="ENGLISH">ENGLISH</option>
+            <option value="HINDI">HINDI</option>
+            <option value="MARATHI">MARATHI</option>
+            <option value="BENGALI">BENGALI</option>
+            <option value="GUJRATI">GUJRATI</option>
+            <option value="TELEGU">TELEGU</option>
+          </select>
+        </div>
+      </div>
+      <label>Gender :</label>
+        <br>
+        &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="male" value="Male" required>
+        &nbsp;
+        <span>Male</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="female" value="Female" required>
+        &nbsp;
+        <span>Female</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="others" value="Others" required>
+        &nbsp;
+        <span>Others</span>
+
+
+      <div class="input-box">
+        <div class="input-field">
+          <input type="password" placeholder="password" name="passwd" required>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="input-field">
+          <input type="text" placeholder="Your Date of birth" name="dob" required>
+          <i class='bx bxs-baby-carriage'></i>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">Confirm</button>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("form-id").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const formDataObject = Object.fromEntries(formData);
+  
+      console.log("Form submitted:", formDataObject);
+      senddatatoserver(formDataObject);
+    });
+  
+    const senddatatoserver = async (data) => {
+      console.log(data);
+      try {
+        await fetch('/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+      }
+    }
+  </script>  
+</body>
+
+</html>
